@@ -1,0 +1,88 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+:root{
+    --main-btn-linear-gradient: linear-gradient(90deg, #3b82f6, #8b5cf6, #10b981);
+    --main-10-element-color: #184bbc;
+}
+body{
+    background-color: white;
+}
+.main-upper-nav{
+    padding: 0px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    background-color: white;
+    filter: drop-shadow(0px 0px 7px rgba(0, 0, 0, 0.25));
+}
+.upper-inner-nav-1{
+    display: flex;
+    align-items: center;
+    object-fit: cover;
+}
+
+.main-logo{
+    width: 100%;
+    height: auto;
+    max-width: 200px;
+    margin: 0 auto;
+    object-fit: cover;
+}
+.upper-inner-links{
+    border: none;
+}
+.btn-primary{
+    background-color: white;
+    padding: 10px 0px;
+    width: 114px;
+    color: black;
+}
+.btn-upper{
+    border: none;
+    font-weight: 700;
+    font-size: 19px;
+}
+.btn-upper:hover{
+    color: var(--main-btn-linear-gradient);
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+}
+
+.btn-user{
+    margin-right: 10px;
+    width: 100px;
+    padding: 20px 0px;
+    border-radius: 10px;
+    border: var(--main-10-element-color) solid 1px;
+    color: var(--main-10-element-color);
+    font-weight: 700;
+    font-size: 19px;
+    background-color: white;
+
+}
+.btn-user:hover{
+    background-color: #184bbc12;
+    border: var(--main-10-element-color) solid 1px;
+    cursor: pointer;
+}
+.btn-user-sign{
+    margin-right: 20px;
+    width: 100px;
+    padding: 20px 0px;
+    border-radius: 10px;
+    border: var(--main-10-element-color) solid 1px;
+    color: white;
+    font-weight: 700;
+    font-size: 19px;
+    cursor: pointer;
+    background-color: rgba(29, 61, 221, 0.89);
+}
+.btn-user-sign:hover{
+    background-color: rgb(29, 61, 221);
+    cursor: pointer;
+}
