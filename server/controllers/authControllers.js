@@ -33,7 +33,7 @@ export const register = async(req, res) => {
         res.cookie('token', token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
-            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
+            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
             maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
         });
         // Send verification email  
@@ -63,7 +63,7 @@ export const login = async(req, res) => {
         const user = await userModel.findOne({email});
 
         if(!user){
-            return res.json({sucesss: false, message: "Enter valid email and password"});
+            return res.json({success: false, message: "Enter valid email and password"});
         };
         const isMatch = await bcrypt.compare(password, user.password);
         if(!isMatch){
@@ -71,10 +71,11 @@ export const login = async(req, res) => {
         };
         const token = jwt.sign({id: user._id}, process.env.JWT_SECRET, { expiresIn: '7d' });
         
+        console.log('Setting cookie with token:', token);
         res.cookie('token', token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
-            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
+            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
             maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
         });
         return res.json({success: true, message: "Login Success"});

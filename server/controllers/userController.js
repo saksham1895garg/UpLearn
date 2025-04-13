@@ -2,16 +2,14 @@ import userModel from "../models/userSchema.js";
 
 export const getUserData = async (req, res) => {
     try {
-        if (!req.body) {
-            return res.status(400).json({ success: false, message: "Request body is missing" });
+        console.log('Cookies received:', req.cookies);
+        console.log('User from middleware:', req.user);
+
+        if (!req.user || !req.user.id) {
+            return res.status(401).json({ success: false, message: "User not authenticated" });
         }
 
-        const { userId } = req.body;
-        if (!userId) {
-            return res.status(400).json({ success: false, message: "Missing userId in request body" });
-        }
-
-        const user = await userModel.findById(userId);
+        const user = await userModel.findById(req.user.id);
         if (!user) {
             return res.status(404).json({ success: false, message: "User not found" });
         }
@@ -19,6 +17,8 @@ export const getUserData = async (req, res) => {
         res.json({
             success: true,
             userData: {
+                firstname: user.firstname,
+                lastname: user.lastname,
                 username: user.username,
                 isAccountVerified: user.isAccountVerified,
                 email: user.email,
