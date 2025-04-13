@@ -23,25 +23,28 @@ const Home = () => {
             <h3 className="site-description">Welcome to <span className='uni-name'>UniSathi</span> – a place where students connect to teach, learn, and grow together. Whether you’re here to share your knowledge or seek guidance from your peers, UniSathi is your go-to platform to make learning fun and collaborative.</h3>
             <button className="get-started">Get Started</button>
           </div>
-          <div className="mid-main-cards">
-            <div className="card-main">
-              <h1>Study Groups</h1>
-              <p>Join peer-led groups to discuss and solve academic problems together.</p>
-            </div>
-            <div className="card-main">
-              <h1>1:1 Classes</h1>
-              <p>Schedule personalized sessions with fellow students who can help you.</p>
-            </div>
-            <div className="card-main">
-              <h1>College Resources</h1>
-              <p>Schedule personalized sessions with fellow students who can help you.</p>
-            </div>
-            <div className="card-main">
-              <h1>Tutors</h1>
-              <p>Find and connect with student tutors from your university who are ready to help.</p>
+          <div className="mid-main-main-card-con">
+            <div className="mid-main-cards">
+              <div className="card-main">
+                <h1>Study Groups</h1>
+                <p>Join peer-led groups to discuss and solve academic problems together.</p>
+              </div>
+              <div className="card-main">
+                <h1>1:1 Classes</h1>
+                <p>Schedule personalized sessions with fellow students who can help you.</p>
+              </div>
+              <div className="card-main">
+                <h1>College Resources</h1>
+                <p>Schedule personalized sessions with fellow students who can help you.</p>
+              </div>
+              <div className="card-main">
+                <h1>Tutors</h1>
+                <p>Find and connect with student tutors from your university who are ready to help.</p>
 
+              </div>
             </div>
           </div>
+          
           <div className="empow-out">
             <div className="empow">
               <h1>Empowering Student Tutors</h1>

@@ -14,7 +14,7 @@ const port = process.env.PORT || 4000;
 // database connection
 mongoose.connect(process.env.DB_URL).then(() => console.log('DataBase is connected')).catch((err) => {console.log("Database Connection Lost"); console.log(err)});
 
-const allowedOrigins = ['http://localhost:5173', 'http://localhost:5174']
+const allowedOrigins = ['http://localhost:5173', 'http://localhost:5174', 'http://localhost:5175/']
 
 
 // middlewares

@@ -23,6 +23,7 @@ body{
     display: flex;
     align-items: center;
     object-fit: cover;
+    margin-left: 65px;
 }
 
 .main-logo{
@@ -31,6 +32,7 @@ body{
     max-width: 200px;
     margin: 0 auto;
     object-fit: cover;
+    cursor: pointer;
 }
 
 .btn-primary{
@@ -213,9 +215,18 @@ body{
     background: linear-gradient(-25deg, #3b82f6, #8b5cf6, #10b981);
     cursor: pointer;
 }
+.mid-main-main-card-con{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    padding: 30px;
+    margin-top: 40px;
+    width: 100%;
+}
 .mid-main-cards{
     margin-top: 30px;
-    width: 100%;
+    width: 80%;
     padding: 25px 60px;
     display: flex;
     justify-content: space-between;
@@ -339,6 +350,9 @@ table{
     width: 290px;
     text-align: start;
     font-weight: 700;
+}
+.lead-tr{
+    overflow-y: scroll;
 }
 .lead-tr:nth-child(odd){
     background-color: #f0f2f5;
