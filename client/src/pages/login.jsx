@@ -6,7 +6,6 @@ import { AppContent } from '../context/AppContext.js';
 import axios from 'axios';
 import {toast} from 'react-toastify';
 
-
 const Login = () => {
 
   const navigate = useNavigate();
@@ -18,13 +17,79 @@ const Login = () => {
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [university, setUniversity] = useState('')
+  const [profilePicture, setProfilePicture] = useState(null)
+
+  const universities = [
+    { name: 'UPES', emailFormat: '@stu.upes.ac.in' },
+    { name: 'Uttaranchal University', emailFormat: '@uttaranchal.ac.in' },
+    { name: 'IIT Roorkee', emailFormat: '@iitr.ac.in' }
+  ];
+
+  const validateEmail = (email, university) => {
+    if (!university) return true;
+    const selectedUniv = universities.find(u => u.name === university);
+    return email.endsWith(selectedUniv.emailFormat);
+  };
+
+  const handleUniversityChange = (e) => {
+    const selectedUniversity = e.target.value;
+    setUniversity(selectedUniversity);
+    // Clear email if it doesn't match the new university format
+    if (email && !validateEmail(email, selectedUniversity)) {
+      setEmail('');
+    }
+  };
+
+  const handleEmailChange = (e) => {
+    const newEmail = e.target.value;
+    // Always allow typing, validation will be handled by the input pattern
+    setEmail(newEmail);
+  };
 
   const onSubmitHandler = async(e) => {
     try {
       e.preventDefault();
+
+      // Check all required fields for Sign Up
+      if (state === "Sign Up") {
+        if (!firstname.trim() || !lastname.trim() || !username.trim() || !email.trim() || !password.trim() || !university) {
+          toast.error("Please fill all fields");
+          return;
+        }
+
+        // Get confirm password value
+        const confirmPassword = document.querySelector('.conpass-input').value;
+        if (password !== confirmPassword) {
+          toast.error("Passwords do not match");
+          return;
+        }
+      } else {
+        // Check required fields for Login
+        if (!email.trim() || !password.trim()) {
+          toast.error("Please fill all fields");
+          return;
+        }
+      }
+
       axios.defaults.withCredentials = true
       if (state === "Sign Up") {
-        const { data } = await axios.post(backendUrl + '/api/auth/register', { firstname, lastname, username, email, password });
+        const formData = new FormData();
+        formData.append('firstname', firstname);
+        formData.append('lastname', lastname);
+        formData.append('username', username);
+        formData.append('email', email);
+        formData.append('password', password);
+        formData.append('university', university);
+        if (profilePicture) {
+          formData.append('profilePicture', profilePicture);
+        }
+
+        const { data } = await axios.post(backendUrl + '/api/auth/register', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
         if (data.success) {
           setisLoggedin(true);
           getUserData()
@@ -82,11 +147,43 @@ const Login = () => {
                 <div className="username-div user-verify-input-div">
                   <input onChange={e => setUsername(e.target.value)} value={username} className='name-reg username-reg username-input' type="text" placeholder='Username' required />
                 </div>
+                <div className="profile-picture-div user-verify-input-div">
+                  <input 
+                    placeholder='Profile Picture'
+                    type="file" 
+                    onChange={e => setProfilePicture(e.target.files[0])} 
+                    className='name-reg profile-picture-input' 
+                    accept="image/*"
+                  />
+                </div>
               </>
             )}
+            <div className="university-selector">
+              {state === 'Sign Up' && (
+                <select 
+                  onChange={handleUniversityChange} 
+                  value={university} 
+                  className='university-select' 
+                  required
+                >
+                  <option value="">Select University</option>
+                  {universities.map(univ => (
+                    <option key={univ.name} value={univ.name}>{univ.name}</option>
+                  ))}
+                </select>
+              )}
+            </div>
             
             <div className="user-email-div user-verify-input-div">
-              <input onChange={e => setEmail(e.target.value)} value={email} className='name-reg email-reg email-input' type="email" placeholder='College Email' required />
+              <input 
+                onChange={handleEmailChange}
+                value={email} 
+                className='name-reg email-reg email-input' 
+                type="email" 
+                placeholder={state === 'Sign Up' && university ? `College Email (${universities.find(u => u.name === university)?.emailFormat})` : 'Email'} 
+                required 
+                pattern={state === 'Sign Up' && university ? `.*${universities.find(u => u.name === university)?.emailFormat}$` : undefined}
+              />
             </div>
             <div className="password-div user-verify-input-div">
               <input onChange={e => setPassword(e.target.value)} value={password} className='name-reg password-reg password-input' type="password" placeholder='Password' required />
@@ -119,10 +216,7 @@ const Login = () => {
           <>
             <h4 className="already">Don't have an account{' '} <span onClick={()=>setState('Sign Up')}><h4>Sign Up</h4></span></h4>
           </>
-
         )}
-        
-        
       </div>
     </div>
     </div>

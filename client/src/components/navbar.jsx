@@ -6,7 +6,7 @@ import axios from 'axios'
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const { isLoggedin, setisLoggedin, setUserData, backendUrl } = useContext(AppContent);
+  const { isLoggedin, setisLoggedin, setUserData, backendUrl, userData } = useContext(AppContent);
 
   const handleLogout = async () => {
     try {
@@ -34,7 +34,20 @@ const Navbar = () => {
       </div>
       <div className="upper-inner-nav-3">
         {isLoggedin ? (
-          <button onClick={handleLogout} className='btn-user'>Logout</button>
+          <div className="user-profile-section">
+            {userData?.profilePicture ? (
+              <img 
+                src={userData.profilePicture} 
+                alt="Profile" 
+                className="profile-picture"
+              />
+            ) : (
+              <div className="profile-initial">
+                {userData?.firstname?.[0]?.toUpperCase()}
+              </div>
+            )}
+            <button onClick={handleLogout} className='btn-user'>Logout</button>
+          </div>
         ) : (
           <>
             <button onClick={()=>navigate("/login")} className='btn-user'>Login</button>

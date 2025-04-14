@@ -17,22 +17,37 @@ const userSchema = new mongoose.Schema({
         unique: true,
         trim: true,
     },
+    university:{
+        type: String,
+        required: true,
+        trim: true,
+    },
     email:{
         type: String,
         required: true,
         unique: true,
         trim: true,
     },
-    // role:{
-    //     type: String,
-    //     enum: ['admin', 'student', 'teacher'],
-    //     default: 'user',
-    //     required: true,
-    // },
+    profilePicture: {
+        type: String,
+        default: ''
+    },
     password:{
         type: String,
         required: true,
         trim: true,
+    },
+    branch:{
+        type: String,
+        default: "",
+    },
+    course:{
+        type: String,
+        default: "",
+    },
+    collageyear:{
+        type: String,
+        default: "",
     },
     verifyOtp:{
         type: String,
@@ -59,4 +74,3 @@ const userSchema = new mongoose.Schema({
 const userModel = mongoose.models.user || mongoose.model('user', userSchema);
 
 export default userModel;
- 

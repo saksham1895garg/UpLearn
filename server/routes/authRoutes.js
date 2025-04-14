@@ -3,12 +3,13 @@ import express from 'express';
 
 import { isAuthenticated, login, logout, register, resetPassword, sendResetOtp, sendVerifyOtp, verifiedEmail } from '../controllers/authControllers.js';
 import userAuth from '../middleware/userAuth.js'
+import profile from '../controllers/authControllers.js';
 
 
 
 const authRouter = express.Router();    
 
-authRouter.post('/register', register);
+authRouter.post('/register', profile.single('profilePicture'), register);
 authRouter.post('/login', login);
 authRouter.post('/logout', logout);
 authRouter.post('/send-verify-otp', userAuth, sendVerifyOtp);
